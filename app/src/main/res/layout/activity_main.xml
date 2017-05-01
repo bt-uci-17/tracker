@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="How are you feeling?"
+        android:textSize="20sp"
+        android:padding="8dp"/>
+
+    <SeekBar
+        android:id="@+id/moodSeekBar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:progress="4"
+        android:progressTint="@android:color/background_light"
+        android:max="8"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Depressed"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Neutral"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manic"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="How anxious are you?"
+        android:textSize="20sp"
+        android:padding="8dp"
+        android:layout_marginTop="16dp"/>
+
+    <SeekBar
+        android:id="@+id/anxietySeekBar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:progress="0"
+        android:progressTint="@android:color/background_light"
+        android:max="8"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Not anxious"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Very anxious"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notes:"
+        android:textSize="20sp"
+        android:padding="8dp"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/notesEditText"
+        android:lines="8"
+        android:gravity="top|left"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT"
+        android:onClick="addToDatabaseAndResetForm"/>
+
+
+</LinearLayout>
