@@ -47,6 +47,7 @@ public class GraphActivity extends AppCompatActivity {
     private void drawDisplay() {
         recyclerView = (RecyclerView) findViewById(R.id.entriesRecyclerView);
 
+        // Set the "back" button in the title bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         dataSource = new EntriesDataSource(this);
@@ -55,10 +56,13 @@ public class GraphActivity extends AppCompatActivity {
         List<DatabaseEntry> databaseEntries = dataSource.getAllDatabaseEntries();
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
+
+        // Remove everything otherwise it will display multiple copies when we redraw!
         graph.removeAllSeries();
         LineGraphSeries<DataPoint> moodSeries = new LineGraphSeries<>();
         LineGraphSeries<DataPoint> anxietySeries = new LineGraphSeries<>();
 
+        // Add all the entries to the graph
         for (int i = 0; i < databaseEntries.size(); i++) {
             DatabaseEntry databaseEntry = databaseEntries.get(i);
 
@@ -76,14 +80,21 @@ public class GraphActivity extends AppCompatActivity {
             moodSeries.appendData(moodDataPoint,false,databaseEntries.size());
             anxietySeries.appendData(anxietyDataPoint,false,databaseEntries.size());
         }
-        graph.addSeries(moodSeries);
 
+        graph.addSeries(moodSeries);
         graph.addSeries(anxietySeries);
+
         anxietySeries.setColor(Color.RED);
+        moodSeries.setColor(Color.BLUE);
+
+        // Convert the UNIX timestamps into more user-friendly date labels
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
         graph.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
 
         graph.getViewport().setScalable(true);
+
+        // If we don't do this then the Y axis becomes scalable as well. Also it will display
+        // only the range it needs to rather than the full nine-point Likert scale.
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMinY(1);
         graph.getViewport().setMaxY(9);
@@ -92,9 +103,11 @@ public class GraphActivity extends AppCompatActivity {
 
         moodSeries.setTitle("Mood (Depressed / Manic)");
         anxietySeries.setTitle("Anxiety Level");
+
         graph.getLegendRenderer().setVisible(true);
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.BOTTOM);
 
+        // Populate the RecyclerView
         entryAdapter = new EntryAdapter(databaseEntries);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
